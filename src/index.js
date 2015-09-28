@@ -1,6 +1,7 @@
 var FamousEngine = require('famous/core/FamousEngine')
 var DOM = require('famous/dom-renderables/DOMElement')
 var Position = require('famous/components/Position')
+var Rotation = require('famous/components/Rotation')
 var Transitionable = require('famous/transitions/Transitionable')
 var _ = require('underscore')
 var faker = require('faker')
@@ -25,6 +26,8 @@ _.times(8, function (i) {
     .setOrigin(0, 0)
     .setSizeMode(0, 1)
     .setAbsoluteSize(0, 25)
+    .setPosition(-20, 0, -2)
+    .setRotation(3, 3, -3)
 
   new DOM(itemNode, {
     tag: 'li',
@@ -36,7 +39,7 @@ _.times(8, function (i) {
     content: faker.name.firstName() + ' ' + faker.name.lastName()
   })
 
-  var yPos = new Position(itemNode)
-  yPos.set(0, i*30, 0, { duration: i*250, curve: 'outCubic' })
-
+  new Position(itemNode).set(0, i*30, 0, { duration: i*250, curve: 'inBack' })
+  
+  new Rotation(itemNode).set(0, 0, 0, { duration: 2000 })
 })
